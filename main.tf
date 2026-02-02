@@ -1,13 +1,3 @@
-resource "azurerm_resource_group" "rs1" {
-    name     = "himanshu-resource-group-one"
-    location = "West US"
-  
-}
-
-resource "azurerm_resource_group" "rs2" {
-    name     = "himanshu-resource-group-two"
-    location = "West US"
-}
 
 resource "azurerm_resource_group" "rs1" {
     name     = "himanshu-resource-group-one"
@@ -34,5 +24,6 @@ resource "azurerm_subnet" "vnet-sub1" {
   address_prefixes     = ["10.0.1.0/24"]
   
 }
+
 
 
