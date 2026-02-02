@@ -83,6 +83,39 @@ resource "azurerm_linux_virtual_machine" "example" {
 }
 
 
+resource "azurerm_network_security_group" "example" {
+  name                = "${var.vnet-name}-nsg1"
+  location            = azurerm_resource_group.rs1.location
+  resource_group_name = azurerm_resource_group.rs1.name
+
+  security_rule {
+    name                       = "test1234"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "*"
+    source_port_range          = "80"
+    destination_port_range     = "*"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+  security_rule {
+    name                       = "test123"
+    priority                   = 200
+    direction                  = "Outbound"
+    access                     = "Allow"
+    protocol                   = "*"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  
+}
+
+
+
 
 
 
