@@ -41,6 +41,48 @@ resource "azurerm_storage_container" "sc1" {
   
 }
 
+resource "azurerm_network_interface" "example" {
+  name                = "${var.vnet-name}-nic1"
+  location            = azurerm_resource_group.rs1.location
+  resource_group_name = azurerm_resource_group.rs1.name
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.vnet-sub1.id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
+resource "azurerm_linux_virtual_machine" "example" {
+  name                = "${var.vnet-name}-vm1"
+  resource_group_name = azurerm_resource_group.rs1.name
+  location            = azurerm_resource_group.rs1.location
+  size                = "Standard_F2"
+  admin_username      = "adminuser"
+    admin_password      = "P@ssword1234"
+
+  network_interface_ids = [
+    azurerm_network_interface.example.id,
+  ]
+  admin_ssh_key {
+    username   = "adminuser"
+    public_key = file("~/.ssh/id_rsa.pub")
+  }
+
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts"
+    version   = "latest"
+  }
+}
+
+
 
 
 
