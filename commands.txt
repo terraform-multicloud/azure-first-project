@@ -1,0 +1,1 @@
+(base) Himanshus-MacBook-Pro-3:azure-first-project himanshu$ az ad sp create-for-rbac --name terraform-azurenewone --role Contributor --scopes /subscriptions/dedc5a3d-ddc7-4a29-a649-ab1954b1dd24
